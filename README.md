@@ -7,6 +7,7 @@ Introduction to the badge is well covered here: https://wiki.badge.team/Disobey2
 
 ## Programming
 Apps for the badge can be written in Micropython and released in https://badge.disobey.fi
+
 The ESP32 firmware development (by badge.team) continues in https://github.com/badgeteam/micropython-esp32
 
 ## Features
