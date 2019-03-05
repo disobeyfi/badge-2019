@@ -1,0 +1,43 @@
+i2c protocol
+commands (write):
+0x01: set LED (ledid, r,g,b)
+    r,g,b=0-0xff
+    ledid=0-5, 6=all
+0x02: set backlight (value=0-255)
+0x03: set buzzer freq (freq (2 bytes, Hz, 0=off), duration (2 bytes, ms, 0=continuous))
+0x04: set everything off (backlight, LEDs, buzzer)
+
+state (read):
+byte 0: button state 0|U|T0|T1|T2|T3|T4|T5 (U is USB connected status)
+byte 1: battery state
+reading state resets interrupt
+
+
+
+Touch state machine:
+
+IDLE = 0
+WAITING
+DONE
+
+(internal state: readings, buttonstate, offsets, curindex)
+
+Transitions:
+IDLE (check number of iterations) -> DONE, index=-1
+DONE (increment index, start conversion) -> (if index<6)->WAITING (if index==6)->IDLE
+WAITING (check conversion state) -> (id conversion ready)->DONE (else)->WAITING
+
+LED driver setup:
+
+(internal state: value of each LED for each channel, led index, channel index)
+
+On timer trigger: 
+    disable all LEDs, 
+    increment channel index, 
+    if channel index==3 reset channel index to zero, increment LED index
+    if led index==6 reset led index to 0
+Enable anode of LED pointed to by LED index (set to high)
+Set cathode PWM duty cycle to 255-value[channel]
+
+
+
