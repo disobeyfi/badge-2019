@@ -1,0 +1,65 @@
+program bootloader:
+${HOME}/.arduino15/packages/arduino/tools/openocd/0.9.0-arduino6-static/bin/openocd -d2 -s ${HOME}/.arduino15/packages/arduino/tools/openocd/0.9.0-arduino6-static/share/openocd/scripts/ -f ${HOME}/.arduino15/packages/arduino/hardware/samd/1.6.18/variants/arduino_zero/openocd_scripts/arduino_zero.cfg -c "telnet_port disabled; init; halt; flash erase_sector 0 0 last; at91samd bootloader 0; program {{${HOME}/designs/samd-fw/D21bootloader.bin}} verify reset; shutdown"
+
+program application:
+sudo dfu-util -D Arduino/badgetest/badgetest.ino.disobey.bin -R
+
+To install arduino environment addon:
+
+Install arduino SAMD package version 1.6.18
+
+Find directory where SAMD package is installed and replace hardware/arduino/samd/1.6.18 directory with one provided in zipfile
+http://koti.kapsi.fi/~kliment/nonpublic/1.6.18.zip
+
+
+Arduino pin mapping:
+
+0 - TX - PA01
+1 - RX - PA00
+2 - PA18 - RGB-C1
+3 - PA23 - RGB-C2
+4 - PA22 - RGB-C3
+5 - PA21 - RGB-C4
+6 - PA20 - RGB-C5
+7 - PA19 - RGB-C6
+8 - PA17 - RGBCR
+9 - PA12 - RGBCG
+10 - PA16 - RGBCB
+11 - ESPBL - PA28
+12 - ESPRST - PA27
+13 - IRLED - PA13
+14 - SPEAKER_OUT - PB10
+15 - LCDRST -PA10
+16 - LCDBACKLIGHT -PA11
+17 - PA14
+18 - SDA - PA8
+19 - SCL - PA9
+20 - PB22
+21 - PB23
+22 - BOOTLOADSAMD -PA15
+23/24 - PB11
+25 - PB03 -ADC1
+26 - TOUCH0 - PA2/ADC4
+27 - TOUCH1 - PA3/ADC5
+28 - TOUCH2 - PA4/ADC6
+29 - TOUCH3 - PA5/ADC7
+30 - TOUCH4 - PA6/ADC8
+31 - TOUCH5 - PA7/ADC9
+32 - MIC - PB9/ADC3
+33 - PB8/ADC2
+34 - PB2/ADC0
+35 - SWCLK -PA30
+36 - SWDIO -PA31
+37 - USBDM -PA24
+38 - USBDP -PA25
+
+Example firmware functionality (badgetest):
+
+[TODO: list and briefly describe the modes]
+[TODO: prerequisites to set modes, and how to set them]
+
+Provides USB-Serial comms to esp32 (only 115200bps allowed!!!)
+If very first byte after USB enumeration is # and second byte is not # it resets ESP32 into bootloader mode
+[TODO: give example]
+If very first byte after USB enumeration is # and second byte is also # it resets ESP32 into normal mode
+[TODO: give example]
