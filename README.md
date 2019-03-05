@@ -30,4 +30,4 @@ The ESP32 firmware development (by badge.team) continues in https://github.com/b
 ## Thanks
 * NotMyNick - The Father of Disobey
 * badge.team for creating awesome platform for badges
-* Helsinki Hacklab providing the lab and tools for workshops
+* Helsinki Hacklab for providing the lab and tools for the workshops
