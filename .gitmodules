@@ -1,3 +1,6 @@
 [submodule "src/esp32"]
 	path = src/esp32
 	url = https://github.com/badgeteam/ESP32-Firmware.git
+[submodule "src/samd"]
+	path = src/samd
+	url = https://github.com/badgeteam/disobey-2019-samd-firmware
